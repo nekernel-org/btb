@@ -25,6 +25,9 @@
 /* Begin PBXFileReference section */
 		1D52DE022C240E3B00FB5EA7 /* buildme */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = buildme; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D52DE052C240E3B00FB5EA7 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		1D52DE0C2C240EAA00FB5EA7 /* json.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = json.hpp; sourceTree = "<group>"; };
+		1D52DE0D2C240ECE00FB5EA7 /* json_fwd.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = json_fwd.hpp; sourceTree = "<group>"; };
+		1D52DE0E2C24105D00FB5EA7 /* build.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = build.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +61,9 @@
 			isa = PBXGroup;
 			children = (
 				1D52DE052C240E3B00FB5EA7 /* main.cpp */,
+				1D52DE0C2C240EAA00FB5EA7 /* json.hpp */,
+				1D52DE0D2C240ECE00FB5EA7 /* json_fwd.hpp */,
+				1D52DE0E2C24105D00FB5EA7 /* build.json */,
 			);
 			path = buildme;
 			sourceTree = "<group>";
