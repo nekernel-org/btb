@@ -1,0 +1,6 @@
+{
+  "compiler_path": "cplusplus",
+  "compiler_std": "c++20",
+  "headers_path": ["/App/Modules/", "/App/Headers/"],
+  "sources_path": ["/App/Sources/*.cxx"]
+}
