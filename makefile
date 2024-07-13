@@ -6,3 +6,4 @@ build-zpt-core:
 .PHONY: build-btbuild
 build-btbuild:
 	g++ -I./inc $(wildcard btbuild/*.cxx) -lzpt-core -o btb
+	cp btb /usr/bin
