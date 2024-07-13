@@ -12,6 +12,6 @@ public:
     ManifestBuilder(const ManifestBuilder&) = default;
 
 public:
-    int buildJson(int argc, const char * argv[]);
+    bool buildJson(int arg_sz, const char * arg_val);
 
 };

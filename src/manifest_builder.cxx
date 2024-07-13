@@ -5,67 +5,80 @@
 //  Created by Amlal on 6/20/24.
 //
 
-#include <sstream>
+#include <cstdio>
+#include <json.hxx>
+#include <cstdlib>
 #include <iostream>
 #include <fstream>
-
 #include <manifest_builder.hxx>
-
-#include <json.hxx>
 
 using json = nlohmann::json;
 
-int ManifestBuilder::buildJson(int argc, const char * argv[])
+bool ManifestBuilder::buildJson(int arg_sz, const char* arg_val)
 {
-    std::cout << "buildme: ";
-    std::string path;
+	std::cout << "buildme: ";
+	std::string path;
 
-    if (argc == 1)
-    {
-        std::cout << "no files, defaulting to build.json\n";
-        path = "./build.json";
-    }
-    else
-    {
-        path = argv[1];
-    }
+	if (arg_sz < 0)
+	{
+		std::cout << "no files provided.\n";
+		return false;
+	}
+	else
+	{
+		path = arg_val;
+	}
 
-    try
-    {
-        std::ifstream fJson(path);
-        json buildme = json::parse(fJson);
+	try
+	{
+		std::ifstream json_obj(path);
 
-        std::string compiler = buildme["compiler_path"].get<std::string>();
-        std::cout << "choose toolchain: " << compiler << std::endl;
+		if (!json_obj.good())
+		{
+			std::cout << "buildme: no files provided.\n";
+			perror("buildme");
 
-        json headerSearchPath = buildme["headers_path"];
-        std::cout << "search path: " << headerSearchPath.dump() << std::endl;
+			return false;
+		}
 
-        json sourceFiles = buildme["sources_path"];
-        std::cout << "source files: " << sourceFiles.dump() << std::endl;
+		json buildme = json::parse(json_obj);
 
-        std::string cmdLine = compiler + " ";
+		std::string compiler = buildme["compiler_path"].get<std::string>();
+		std::cout << "choose toolchain: " << compiler << std::endl;
 
-        for (auto sources : sourceFiles)
-        {
-            cmdLine += sources.get<std::string>() + " ";
-        }
+		json headerSearchPath = buildme["headers_path"];
+		std::cout << "buildme: search path: " << headerSearchPath.dump() << std::endl;
 
-        for (auto sources : sourceFiles)
-        {
-            cmdLine += "-include=" + sources.get<std::string>() + " ";
-        }
+		json sourceFiles = buildme["sources_path"];
+		std::cout << "buildme: source files: " << sourceFiles.dump() << std::endl;
 
-        cmdLine += "-std=" + buildme["compiler_std"].get<std::string>() + " ";
+		std::string cmdLine = compiler + " ";
 
-        std::cout << "running: " << cmdLine << std::endl;
+		for (auto& sources : sourceFiles)
+		{
+			cmdLine += sources.get<std::string>() + " ";
+		}
 
-        std::system(cmdLine.c_str());
-    }
-    catch (...)
-    {
-        return 1;
-    }
+		for (auto& headers : headerSearchPath)
+		{
+			cmdLine += "-include=" + headers.get<std::string>() + " ";
+		}
 
-    return 0;
+		cmdLine += "-std=" + buildme["compiler_std"].get<std::string>() + " ";
+
+		cmdLine += "-o " + buildme["output_name"].get<std::string>();
+
+		std::cout << "buildme: running: '" << cmdLine << "'" << std::endl;
+
+		std::system(cmdLine.c_str());
+	}
+	catch (std::runtime_error& err)
+	{
+		perror("buildme");
+		std::cout << "buildme: error: " << err.what() << std::endl;
+
+		return false;
+	}
+
+	return true;
 }

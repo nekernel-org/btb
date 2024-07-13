@@ -3,6 +3,8 @@ syntax: glob
 html/
 latex/
 
+btb
+
 .cmake/
 .qtc_clangd/
 CMakeCache.txt
