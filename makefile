@@ -7,3 +7,8 @@ build-zpt-core:
 build-btbuild:
 	g++ -I./inc $(wildcard btbuild/*.cxx) -lzpt-core -o btb
 	cp btb /usr/bin
+
+.PHONY: help
+help:
+	@echo "=> build-zpt-core"
+	@echo "=> build-btbuild"
