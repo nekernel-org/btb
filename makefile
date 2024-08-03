@@ -1,11 +1,11 @@
-.PHONY: build-zpt-core
-build-zpt-core:
-	g++ -I./inc $(wildcard src/*.cxx) -std=c++20 -fPIC -shared -o libzpt-core.so
-	cp libzpt-core.so /usr/lib
+.PHONY: build-btb-core
+build-btb-core:
+	g++ -I./inc $(wildcard src/*.cxx) -std=c++20 -fPIC -shared -o libbtb.so
+	cp libbtb.so /usr/lib
 
-.PHONY: build-btbuild
-build-btbuild:
-	g++ -I./inc $(wildcard btbuild/*.cxx) -lzpt-core -o btb
+.PHONY: build-btb
+build-btb:
+	g++ -I./inc $(wildcard cli/*.cxx) -lbtb -o btb
 	cp btb /usr/bin
 
 .PHONY: help

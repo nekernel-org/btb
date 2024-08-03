@@ -14,6 +14,11 @@
 
 using json = nlohmann::json;
 
+/// @brief Builds a JSON target.
+/// @param arg_sz filename size
+/// @param arg_val filename path.
+/// @retval true succeeded.
+/// @retval false failed.
 bool ManifestBuilder::buildJson(int arg_sz, const char* arg_val)
 {
 	std::string path;
@@ -41,7 +46,7 @@ bool ManifestBuilder::buildJson(int arg_sz, const char* arg_val)
 		std::string compiler = buildme["compiler_path"].get<std::string>();
 
 		json headerSearchPath = buildme["headers_path"];
-		json sourceFiles = buildme["sources_path"];
+		json sourceFiles	  = buildme["sources_path"];
 
 		std::string cmdLine = compiler + " ";
 
@@ -73,6 +78,46 @@ bool ManifestBuilder::buildJson(int arg_sz, const char* arg_val)
 		cmdLine += "-o " + buildme["output_name"].get<std::string>();
 
 		std::system(cmdLine.c_str());
+
+		try
+		{
+			if (buildme["run_after_build"].get<bool>())
+			{
+				auto target = buildme["output_name"].get<std::string>();
+
+				if (target.ends_with(".so") ||
+					target.ends_with(".dll"))
+				{
+					std::cout << "buildme: error: can't open DLL/SO, it mayn't contain an entrypoint." << std::endl;
+					return true;
+				}
+				else if (target.ends_with(".lib"))
+				{
+					auto			  file = std::ifstream(target);
+					std::stringstream ss;
+					ss << file.rdbuf();
+
+					if (ss.str()[0] == 'J' &&
+						ss.str()[1] == 'o' &&
+						ss.str()[2] == 'y' &&
+						ss.str()[3] == '!')
+						std::cout << "buildme: error: can't open PEF LIB, it mayn't contain an entrypoint." << std::endl;
+					else if (ss.str()[0] == '!' &&
+							 ss.str()[1] == 'y' &&
+							 ss.str()[2] == 'o' &&
+							 ss.str()[3] == 'J')
+						std::cout << "buildme: error: can't open FEP LIB, it mayn't contain an entrypoint." << std::endl;
+
+					return true;
+				}
+
+				std::system(("./" + target).c_str());
+			}
+		}
+		catch (...)
+		{
+			// ignore...
+		}
 	}
 	catch (std::runtime_error& err)
 	{
