@@ -10,5 +10,5 @@ build-btb:
 
 .PHONY: help
 help:
-	@echo "=> build-zpt-core"
-	@echo "=> build-btbuild"
+	@echo "=> build-btb-core"
+	@echo "=> build-btb"
