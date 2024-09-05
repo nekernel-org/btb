@@ -78,7 +78,9 @@ bool ManifestBuilder::buildJson(int arg_sz, const char* arg_val)
 			cmdLine += flag.get<std::string>() + " ";
 		}
 
-		cmdLine += "-std=" + buildme["compiler_std"].get<std::string>() + " ";
+		if (!buildme["compiler_std"].get<std::string>().empty())
+			cmdLine += "-std=" + buildme["compiler_std"].get<std::string>() + " ";
+			
 		cmdLine += "-o " + buildme["output_name"].get<std::string>();
 
 		std::system(cmdLine.c_str());
