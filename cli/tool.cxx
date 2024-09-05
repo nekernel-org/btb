@@ -20,7 +20,7 @@ int main(int argc, char** argv)
             index_json == "/?" ||
 			index_json == "/Help")
 		{
-			std::cout << "btb: 🚀 Version 1.01.\n";
+			std::cout << "btb: 🚀 Basic Tool for Building.\n";
 			std::cout << "btb: Brought to you by Amlal El Mahrouss.\n";
 			std::cout << "btb: © ZKA Technologies, all rights reserved.\n";
 			
@@ -30,7 +30,7 @@ int main(int argc, char** argv)
 		}
 
 		std::thread job([](std::string index_json) -> void {
-			std::cout << "building: " << index_json << std::endl;
+			std::cout << "btb: " << index_json << std::endl;
 
 			ManifestBuilder builder;
 

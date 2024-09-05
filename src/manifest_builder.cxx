@@ -1,6 +1,6 @@
 //
 //  main.cpp
-//  buildme
+//  btb
 //
 //  Created by Amlal on 6/20/24.
 //
@@ -92,7 +92,7 @@ bool ManifestBuilder::buildJson(int arg_sz, const char* arg_val)
 				if (target.ends_with(".so") ||
 					target.ends_with(".dll"))
 				{
-					std::cout << "buildme: error: can't open DLL/SO, it mayn't contain an entrypoint." << std::endl;
+					std::cout << "btb: error: can't open DLL/SO, it mayn't contain an entrypoint." << std::endl;
 					return true;
 				}
 				else if (target.ends_with(".dll"))
@@ -105,15 +105,15 @@ bool ManifestBuilder::buildJson(int arg_sz, const char* arg_val)
 						ss.str()[1] == 'o' &&
 						ss.str()[2] == 'y' &&
 						ss.str()[3] == '!')
-						std::cout << "buildme: error: can't open PEF DLL, it mayn't contain an entrypoint." << std::endl;
+						std::cout << "btb: error: can't open PEF DLL, it mayn't contain an entrypoint." << std::endl;
 					else if (ss.str()[0] == '!' &&
 							 ss.str()[1] == 'y' &&
 							 ss.str()[2] == 'o' &&
 							 ss.str()[3] == 'J')
-						std::cout << "buildme: error: can't open FEP DLL, it mayn't contain an entrypoint." << std::endl;
+						std::cout << "btb: error: can't open FEP DLL, it mayn't contain an entrypoint." << std::endl;
 					else if (ss.str()[0] == 'M' &&
 							 ss.str()[1] == 'Z')
-						std::cout << "buildme: error: can't open MZ DLL, it mayn't contain an entrypoint." << std::endl;
+						std::cout << "btb: error: can't open MZ DLL, it mayn't contain an entrypoint." << std::endl;
 
 					return true;
 				}
@@ -128,7 +128,7 @@ bool ManifestBuilder::buildJson(int arg_sz, const char* arg_val)
 	}
 	catch (std::runtime_error& err)
 	{
-		std::cout << "buildme: error: " << err.what() << std::endl;
+		std::cout << "btb: error: " << err.what() << std::endl;
 		perror("buildme");
 
 		return false;
