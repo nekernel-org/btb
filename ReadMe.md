@@ -1,10 +1,10 @@
-# ZPT
+# BTB
 
-A tool used to build libraries/programs and fetch them.
+A tool used to build libraries/programs for ZKA.
 
 ## Installation
 
 - You need GCC
 - You need Make
 
-- Run make `build-zpt` and that's it!
+- Run make `build-btb-core` and `build-btb` and that's it!
