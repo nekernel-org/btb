@@ -5,11 +5,12 @@
 #include <iostream>
 #include <thread>
 
-int job_index = 0;
+int cJobIndex = 0;
+bool cFailed = false;
 
 int main(int argc, char** argv)
 {
-	job_index = argc - 1;
+	cJobIndex = argc - 1;
 
 	for (size_t index = 1; index < argc; ++index)
 	{
@@ -23,7 +24,7 @@ int main(int argc, char** argv)
 			std::cout << "btb: 🚀 Basic Tool for Building.\n";
 			std::cout << "btb: Brought to you by Amlal El Mahrouss.\n";
 			std::cout << "btb: © ZKA Technologies, all rights reserved.\n";
-			
+
             std::cout << "btb: 🆘 run file: btb <json_path>.json\n";
 
 			return 0;
@@ -40,9 +41,11 @@ int main(int argc, char** argv)
 				format += index_json;
 
 				perror(format.c_str());
+
+				cFailed = true;
 			}
 
-			--job_index;
+			--cJobIndex;
 		},
 						index_json);
 
@@ -50,9 +53,9 @@ int main(int argc, char** argv)
 	}
 
 	// wait for completion of all jobs.
-	while (job_index)
+	while (cJobIndex)
 	{
 	}
 
-	return 0;
+	return cFailed ? 1 : 0;
 }
