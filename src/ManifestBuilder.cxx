@@ -107,15 +107,20 @@ bool ManifestBuilder::buildJson(int arg_sz, const char* arg_val)
 						ss.str()[1] == 'o' &&
 						ss.str()[2] == 'y' &&
 						ss.str()[3] == '!')
-						std::cout << "btb: error: can't open PEF DLL, it mayn't contain an entrypoint." << std::endl;
+						std::cout << "btb: error: can't open Joy! DLL, it maynt't contain an entrypoint." << std::endl;
 					else if (ss.str()[0] == '!' &&
 							 ss.str()[1] == 'y' &&
 							 ss.str()[2] == 'o' &&
 							 ss.str()[3] == 'J')
-						std::cout << "btb: error: can't open FEP DLL, it mayn't contain an entrypoint." << std::endl;
+						std::cout << "btb: error: can't open !yoJ DLL, it maynt't contain an entrypoint." << std::endl;
 					else if (ss.str()[0] == 'M' &&
 							 ss.str()[1] == 'Z')
-						std::cout << "btb: error: can't open MZ DLL, it mayn't contain an entrypoint." << std::endl;
+						std::cout << "btb: error: can't open MZ DLL, it maynt't contain an entrypoint." << std::endl;
+					else if (ss.str()[0] == 0x7F &&
+							 ss.str()[1] == 'E')
+					{
+						std::cout << "btb: error: can't open ELF DLL, it maynt't contain an entrypoint." << std::endl;
+					}
 
 					return true;
 				}
@@ -125,13 +130,13 @@ bool ManifestBuilder::buildJson(int arg_sz, const char* arg_val)
 		}
 		catch (...)
 		{
-			// ignore...
+			// ignore error...
 		}
 	}
 	catch (std::runtime_error& err)
 	{
 		std::cout << "btb: error: " << err.what() << std::endl;
-		perror("buildme");
+		perror("btb");
 
 		return false;
 	}

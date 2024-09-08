@@ -5,8 +5,8 @@
 #include <iostream>
 #include <thread>
 
-int cJobIndex = 0;
-bool cFailed = false;
+int	 cJobIndex = 0;
+bool cFailed   = false;
 
 int main(int argc, char** argv)
 {
@@ -18,14 +18,16 @@ int main(int argc, char** argv)
 
 		if (index_json == "/Ver" ||
 			index_json == "/Version" ||
-            index_json == "/?" ||
+			index_json == "/?" ||
 			index_json == "/Help")
 		{
-			std::cout << "btb: 🚀 Basic Tool for Building.\n";
+			std::cout << "btb: 🚀 Basic Tool for Building (JSON support).\n";
 			std::cout << "btb: Brought to you by Amlal El Mahrouss.\n";
 			std::cout << "btb: © ZKA Technologies, all rights reserved.\n";
 
-            std::cout << "btb: 🆘 run file: btb <json_path>.json\n";
+			if (index_json == "/?" ||
+				index_json == "/Help")
+				std::cout << "btb: 🆘 run file: btb <json_path>.json\n";
 
 			return 0;
 		}
@@ -54,8 +56,7 @@ int main(int argc, char** argv)
 
 	// wait for completion of all jobs.
 	while (cJobIndex)
-	{
-	}
+		;
 
 	return cFailed ? 1 : 0;
 }
