@@ -5,7 +5,7 @@ build-btb-core:
 
 .PHONY: build-btb
 build-btb:
-	sudo g++ -I./inc $(wildcard cli/*.cxx) -std=c++20 -L/usr/local -lbtb -o btb
+	sudo g++ -I./inc $(wildcard cli/*.cxx) $(wildcard src/*.cxx) -std=c++20 -L/usr/local -lbtb -o btb
 	sudo cp btb /usr/local/bin
 
 .PHONY: help

@@ -5,7 +5,7 @@
 //  Created by Amlal on 6/20/24.
 //
 
-#include <manifest_builder.hxx>
+#include <JSONManifestBuilder.hxx>
 
 #include <json.hxx>
 
@@ -23,7 +23,7 @@ using json = nlohmann::json;
 /// @param arg_val filename path.
 /// @retval true succeeded.
 /// @retval false failed.
-bool ManifestBuilder::buildJson(int arg_sz, const char* arg_val)
+bool JSONManifestBuilder::Build(int arg_sz, const char* arg_val)
 {
 	std::string path;
 
