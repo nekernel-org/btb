@@ -1,0 +1,4 @@
+[Linker]
+output_name = "example.elf"
+[Sources]
+source_file = ["*.cxx"]

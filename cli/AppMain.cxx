@@ -1,4 +1,4 @@
-#include "IManifestBuilder.hxx"
+#include <Macros.hxx>
 #include <JSONManifestBuilder.hxx>
 #include <cstdio>
 #include <cstddef>
@@ -13,6 +13,7 @@ static IManifestBuilder* cBuilder = new JSONManifestBuilder();
 
 int main(int argc, char** argv)
 {
+    LIKELY(cBuilder == nullptr);
 	cJobIndex = argc - 1;
 
 	for (size_t index = 1; index < argc; ++index)
@@ -23,8 +24,6 @@ int main(int argc, char** argv)
 			index_json == "/Version")
 		{
 			std::cout << "Usage: btb <file>\n";
-			std::cout << "Filename is: " << argv[0] << "\n";
-
 			std::cout << "Check for issues at: www.el-mahrouss-logic.com/btb/issues\n";
 
 			std::cout << "Brought to you by Amlal El Mahrouss.\n";
@@ -61,7 +60,9 @@ int main(int argc, char** argv)
 
 	// wait for completion of all jobs.
 	while (cJobIndex)
-		;
+	{
+	    BTB_UNUSED(0);
+	}
 
 	delete cBuilder;
 
