@@ -1,6 +1,11 @@
+// ============================================================= //
+//  btb
+// Copyright ZKA Technologies.
+// ============================================================= //
+
 #pragma once
 
-/// @brief  Builder interface
+/// @brief Builder interface class
 class IManifestBuilder
 {
 public:

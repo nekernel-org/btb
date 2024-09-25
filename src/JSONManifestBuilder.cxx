@@ -1,22 +1,16 @@
-//
-//  main.cpp
+// ============================================================= //
 //  btb
-//
-//  Created by Amlal on 6/20/24.
-//
+// Copyright ZKA Technologies.
+// ============================================================= //
 
 #include <JSONManifestBuilder.hxx>
-
 #include <json.hxx>
-
 #include <cstdlib>
 #include <cstdio>
-
 #include <iostream>
 #include <fstream>
-#include <sstream>
 
-using json = nlohmann::json;
+using JSON = nlohmann::json;
 
 /// @brief Builds a JSON target.
 /// @param arg_sz filename size
@@ -45,12 +39,12 @@ bool JSONManifestBuilder::Build(int arg_sz, const char* arg_val)
 			return false;
 		}
 
-		json buildme = json::parse(json_obj);
+		JSON buildme = JSON::parse(json_obj);
 
 		std::string compiler = buildme["compiler_path"].get<std::string>();
 
-		json headerSearchPath = buildme["headers_path"];
-		json sourceFiles	  = buildme["sources_path"];
+		JSON headerSearchPath = buildme["headers_path"];
+		JSON sourceFiles	  = buildme["sources_path"];
 
 		std::string cmdLine = compiler + " ";
 
@@ -64,14 +58,14 @@ bool JSONManifestBuilder::Build(int arg_sz, const char* arg_val)
 			cmdLine += "-I" + headers.get<std::string>() + " ";
 		}
 
-		json macrosList = buildme["cpp_macros"];
+		JSON macrosList = buildme["cpp_macros"];
 
 		for (auto& macro : macrosList)
 		{
 			cmdLine += "-D" + macro.get<std::string>() + " ";
 		}
 
-		json compilerFlags = buildme["compiler_flags"];
+		JSON compilerFlags = buildme["compiler_flags"];
 
 		for (auto& flag : compilerFlags)
 		{
