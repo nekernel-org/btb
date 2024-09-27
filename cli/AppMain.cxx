@@ -43,7 +43,7 @@ int main(int argc, char** argv)
 		std::thread job([](std::string index_path) -> void {
 			if (index_path.ends_with(".json"))
 			{
-			    delete cBuilder;
+				delete cBuilder;
 				cBuilder = nullptr;
 
 				if (!cBuilder)
@@ -51,11 +51,16 @@ int main(int argc, char** argv)
 			}
 			else if (index_path.ends_with(".toml"))
 			{
-			    delete cBuilder;
+				delete cBuilder;
 				cBuilder = nullptr;
 
 				if (!cBuilder)
 					cBuilder = new TOMLManifestBuilder();
+			}
+			else
+			{
+				cFailed = true;
+				return;
 			}
 
 			std::cout << "btb: Building: " << index_path << std::endl;
@@ -66,7 +71,8 @@ int main(int argc, char** argv)
 			}
 
 			--cJobIndex;
-		}, index_path);
+		},
+						index_path);
 
 		job.detach();
 	}
@@ -74,10 +80,10 @@ int main(int argc, char** argv)
 	// wait for completion of all jobs.
 	while (cJobIndex)
 	{
-	    if (cFailed)
+		if (cFailed)
 		{
-		    std::cout << "btb: Build failed." << std::endl;
-		    return EXIT_FAILURE;
+			std::cout << "btb: Build failed." << std::endl;
+			return EXIT_FAILURE;
 		}
 	}
 
