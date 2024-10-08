@@ -14,6 +14,18 @@
 /// @retval false failed.
 bool TOMLManifestBuilder::Build(int arg_sz, const char* arg_val)
 {
+    toml::table tbl;
+    
+    try
+    {
+        tbl = toml::parse_file(arg_val);
+        std::cout << tbl << "\n";
+    }
+    catch (const toml::parse_error& err)
+    {
+        std::cerr << "btb: error:" << err << "\n";
+        return false;
+    }
 
     return false;
 }

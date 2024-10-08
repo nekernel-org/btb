@@ -7,10 +7,8 @@
 #include <iostream>
 #include <thread>
 
-int	 cJobIndex = 0;
-bool cFailed   = false;
-
-static IManifestBuilder* cBuilder = nullptr;
+static int	cJobIndex = 0;
+static bool cFailed	  = false;
 
 int main(int argc, char** argv)
 {
@@ -40,22 +38,16 @@ int main(int argc, char** argv)
 			return 0;
 		}
 
-		std::thread job([](std::string index_path) -> void {
+		std::thread job_build_thread([](std::string index_path) -> void {
+			IManifestBuilder* builder = nullptr;
+
 			if (index_path.ends_with(".json"))
 			{
-				delete cBuilder;
-				cBuilder = nullptr;
-
-				if (!cBuilder)
-					cBuilder = new JSONManifestBuilder();
+				builder = new JSONManifestBuilder();
 			}
 			else if (index_path.ends_with(".toml"))
 			{
-				delete cBuilder;
-				cBuilder = nullptr;
-
-				if (!cBuilder)
-					cBuilder = new TOMLManifestBuilder();
+				builder = new TOMLManifestBuilder();
 			}
 			else
 			{
@@ -65,16 +57,18 @@ int main(int argc, char** argv)
 
 			std::cout << "btb: Building: " << index_path << std::endl;
 
-			if (!cBuilder->Build(index_path.size(), index_path.c_str()))
+			if (builder && !builder->Build(index_path.size(), index_path.c_str()))
 			{
 				cFailed = true;
 			}
 
+			delete builder;
+
 			--cJobIndex;
 		},
-						index_path);
+									 index_path);
 
-		job.detach();
+		job_build_thread.detach();
 	}
 
 	// wait for completion of all jobs.
@@ -82,12 +76,10 @@ int main(int argc, char** argv)
 	{
 		if (cFailed)
 		{
-			std::cout << "btb: Build failed." << std::endl;
+			std::cout << "btb: build failed: " << errno << "." << std::endl;
 			return EXIT_FAILURE;
 		}
 	}
-
-	delete cBuilder;
 
 	return cFailed ? EXIT_FAILURE : EXIT_SUCCESS;
 }
