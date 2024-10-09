@@ -1,6 +1,10 @@
+// ============================================================= //
+// btb
+// Copyright ZKA Technologies.
+// ============================================================= //
+
 #include <Macros.hxx>
 #include <JSONManifestBuilder.hxx>
-#include <TOMLManifestBuilder.hxx>
 #include <cstdio>
 #include <cstddef>
 #include <string>
@@ -41,13 +45,11 @@ int main(int argc, char** argv)
 		std::thread job_build_thread([](std::string index_path) -> void {
 			IManifestBuilder* builder = nullptr;
 
-			if (index_path.ends_with(".json"))
+			const auto cJsonExt = ".json";
+
+			if (index_path.ends_with(cJsonExt))
 			{
 				builder = new JSONManifestBuilder();
-			}
-			else if (index_path.ends_with(".toml"))
-			{
-				builder = new TOMLManifestBuilder();
 			}
 			else
 			{
@@ -58,6 +60,10 @@ int main(int argc, char** argv)
 			std::cout << "btb: building: " << index_path << std::endl;
 
 			if (builder && !builder->Build(index_path.size(), index_path.c_str()))
+			{
+				cFailed = true;
+			}
+			else if (!builder)
 			{
 				cFailed = true;
 			}

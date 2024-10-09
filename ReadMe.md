@@ -1,10 +1,15 @@
-# BTB
+# BTB.
 
-A tool used to build libraries/programs for ZKA.
+A tool by ZKA Technologies to build libraries and programs.
 
-## Installation
+## Installation requirements:
 
-- You need GCC
-- You need Make
+- GNU C++ Compiler.
 
-- Run make `build-btb-core` and `build-btb` and that's it!
+## Steps (makefile):
+
+- Run make `build-btb-core` and `build-btb`.
+
+## Steps (btb):
+
+- Run `btb` and pass the path to the manifest file.

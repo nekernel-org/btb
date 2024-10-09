@@ -1,7 +1,0 @@
-[CPlusPlus]
-cxx_compiler = "g++"
-cxx_output_name = "example.elf"
-cxx_source_files = ["*.cxx"]
-cxx_include_directories = ["inc", "vendor"]
-cxx_compiler_flags = ["-std=c++20"]
-cxx_linker_flags = ["-lstdc++"]

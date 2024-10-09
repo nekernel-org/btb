@@ -128,7 +128,11 @@ bool JSONManifestBuilder::Build(int arg_sz, const char* arg_val)
 					return true;
 				}
 
+#ifdef _WIN32
+				std::system((".\\" + target).c_str());
+#else
 				std::system(("./" + target).c_str());
+#endif
 			}
 		}
 		catch (...)
