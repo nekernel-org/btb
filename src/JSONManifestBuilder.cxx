@@ -12,11 +12,11 @@
 
 using JSON = nlohmann::json;
 
-/// @brief Builds a JSON target.
-/// @param arg_sz filename size
-/// @param arg_val filename path.
-/// @retval true succeeded.
-/// @retval false failed.
+/// @brief Builds a JSON target from a JSON file.
+/// @param arg_sz filename size (must be 1 or greater).
+/// @param arg_val filename path (must be a valid JSON file).
+/// @retval true succeeded building.
+/// @retval false failed to build.
 bool JSONManifestBuilder::Build(int arg_sz, const char* arg_val)
 {
 	std::string path;
@@ -28,63 +28,72 @@ bool JSONManifestBuilder::Build(int arg_sz, const char* arg_val)
 	else
 	{
 		path = arg_val;
+
+		if (!std::filesystem::exists(path))
+		{
+			std::cout << "btb: error: file '" << path << "' does not exist." << std::endl;
+			return false;
+		}
 	}
 
 	try
 	{
-		std::ifstream json_obj(path);
+		std::ifstream json(path);
 
-		if (!json_obj.good())
+		if (!json.good())
 		{
 			return false;
 		}
 
-		JSON buildme = JSON::parse(json_obj);
+		JSON json_obj = JSON::parse(json);
 
-		std::string compiler = buildme["compiler_path"].get<std::string>();
+		std::string compiler = json_obj["compiler_path"].get<std::string>();
 
-		JSON headerSearchPath = buildme["headers_path"];
-		JSON sourceFiles	  = buildme["sources_path"];
+		JSON header_search_path = json_obj["headers_path"];
+		JSON sources_files		= json_obj["sources_path"];
 
-		std::string cmdLine = compiler + " ";
+		std::string command = compiler + " ";
 
-		for (auto& sources : sourceFiles)
+		for (auto& sources : sources_files)
 		{
-			cmdLine += sources.get<std::string>() + " ";
+			command += sources.get<std::string>() + " ";
 		}
 
-		for (auto& headers : headerSearchPath)
+		for (auto& headers : header_search_path)
 		{
-			cmdLine += "-I" + headers.get<std::string>() + " ";
+			command += "-I" + headers.get<std::string>() + " ";
 		}
 
-		JSON macrosList = buildme["cpp_macros"];
+		JSON macros_list = json_obj["cpp_macros"];
 
-		for (auto& macro : macrosList)
+		for (auto& macro : macros_list)
 		{
-			cmdLine += "-D" + macro.get<std::string>() + " ";
+			command += "-D" + macro.get<std::string>() + " ";
 		}
 
-		JSON compilerFlags = buildme["compiler_flags"];
+		JSON compiler_flags = json_obj["compiler_flags"];
 
-		for (auto& flag : compilerFlags)
+		for (auto& flag : compiler_flags)
 		{
-			cmdLine += flag.get<std::string>() + " ";
+			command += flag.get<std::string>() + " ";
 		}
 
-		if (buildme["compiler_std"].is_string())
-			cmdLine += "-std=" + buildme["compiler_std"].get<std::string>() + " ";
+		if (json_obj["compiler_std"].is_string())
+			command += "-std=" + json_obj["compiler_std"].get<std::string>() + " ";
 
-		cmdLine += "-o " + buildme["output_name"].get<std::string>();
+		command += "-o " + json_obj["output_name"].get<std::string>();
 
-		std::system(cmdLine.c_str());
+		auto target = json_obj["output_name"].get<std::string>();
+
+		std::cout << "btb: output path: " << target << "\n";
+		std::cout << "btb: command: " << command << "\n";
+
+		std::system(command.c_str());
 
 		try
 		{
-			if (buildme["run_after_build"].get<bool>())
+			if (json_obj["run_after_build"].get<bool>())
 			{
-				auto target = buildme["output_name"].get<std::string>();
-
 				if (target.ends_with(".so") ||
 					target.ends_with(".dll"))
 				{
@@ -124,7 +133,7 @@ bool JSONManifestBuilder::Build(int arg_sz, const char* arg_val)
 		}
 		catch (...)
 		{
-			// ignore error...
+			return true;
 		}
 	}
 	catch (std::runtime_error& err)

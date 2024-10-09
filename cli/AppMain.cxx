@@ -55,7 +55,7 @@ int main(int argc, char** argv)
 				return;
 			}
 
-			std::cout << "btb: Building: " << index_path << std::endl;
+			std::cout << "btb: building: " << index_path << std::endl;
 
 			if (builder && !builder->Build(index_path.size(), index_path.c_str()))
 			{
