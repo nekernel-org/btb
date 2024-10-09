@@ -20,6 +20,8 @@ bool TOMLManifestBuilder::Build(int arg_sz, const char* arg_val)
     {
         tbl = toml::parse_file(arg_val);
         std::cout << tbl << "\n";
+    
+        return true;
     }
     catch (const toml::parse_error& err)
     {
