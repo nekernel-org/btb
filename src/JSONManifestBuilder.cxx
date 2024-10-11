@@ -5,8 +5,8 @@
 
 #include <JSONManifestBuilder.hxx>
 #include <json.hxx>
-#include <cstdlib>
-#include <cstdio>
+
+#include <sstream>
 #include <iostream>
 #include <fstream>
 
