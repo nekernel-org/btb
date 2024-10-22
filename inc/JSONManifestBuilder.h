@@ -1,11 +1,11 @@
 // ============================================================= //
 //  btb
-// Copyright ZKA Technologies.
+// Copyright ZKA Web Services.
 // ============================================================= //
 
 #pragma once
 
-#include <IManifestBuilder.hxx>
+#include <IManifestBuilder.h>
 
 /// @brief JSON builder
 class JSONManifestBuilder final : public IManifestBuilder

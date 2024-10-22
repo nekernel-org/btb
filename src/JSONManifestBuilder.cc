@@ -1,10 +1,10 @@
 // ============================================================= //
 //  btb
-// Copyright ZKA Technologies.
+// Copyright ZKA Web Services.
 // ============================================================= //
 
-#include <JSONManifestBuilder.hxx>
-#include <json.hxx>
+#include <JSONManifestBuilder.h>
+#include <json.h>
 
 #include <sstream>
 #include <iostream>

@@ -1,6 +1,6 @@
 // ============================================================= //
 //  btb
-// Copyright ZKA Technologies.
+// Copyright ZKA Web Services.
 // ============================================================= //
 
-#include <IManifestBuilder.hxx>
+#include <IManifestBuilder.h>

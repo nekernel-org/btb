@@ -1,6 +1,6 @@
 # BTB.
 
-A tool by ZKA Technologies to build libraries and programs.
+A tool by Amlal El Mahrouss to build libraries and programs.
 
 ## Installation requirements:
 
