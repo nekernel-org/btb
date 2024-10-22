@@ -1,7 +1,7 @@
 {
   "compiler_path": "x86_64-w64-mingw32-g++.exe",
   "compiler_std": "c++20",
-  "headers_path": ["inc", "vendor"],
+  "headers_path": ["BTBKit", "vendor"],
   "sources_path": ["src/*.cc", "cli/*.cc"],
   "output_name": "btb.exe",
   "compiler_flags": ["-fPIC"],

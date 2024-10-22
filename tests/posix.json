@@ -1,7 +1,7 @@
 {
   "compiler_path": "g++",
   "compiler_std": "c++20",
-  "headers_path": ["inc"],
+  "headers_path": ["BTBKit"],
   "sources_path": ["example.cc"],
   "output_name": "example.elf",
   "compiler_flags": ["-fPIC"],
