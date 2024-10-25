@@ -6,6 +6,7 @@
 #pragma once
 
 #include <IManifestBuilder.h>
+#include <json.h>
 
 /// @brief JSON builder
 class JSONManifestBuilder final : public IManifestBuilder
@@ -21,7 +22,9 @@ public:
 	/// @brief Builds a JSON target.
 	/// @param arg_sz filename size
 	/// @param arg_val filename path.
-	/// @retval true succeeded.
-	/// @retval false failed.
-	virtual bool Build(int arg_sz, const char* arg_val) override;
+	/// @retval true build succeeded.
+	/// @retval false failed to build.
+	virtual bool buildTarget(int arg_sz, const char* arg_val) override;
+
+	virtual const char* buildSystem() override;
 };

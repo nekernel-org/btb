@@ -4,7 +4,6 @@
 // ============================================================= //
 
 #include <JSONManifestBuilder.h>
-#include <json.h>
 
 #include <sstream>
 #include <iostream>
@@ -17,7 +16,7 @@ using JSON = nlohmann::json;
 /// @param arg_val filename path (must be a valid JSON file).
 /// @retval true succeeded building.
 /// @retval false failed to build.
-bool JSONManifestBuilder::Build(int arg_sz, const char* arg_val)
+bool JSONManifestBuilder::buildTarget(int arg_sz, const char* arg_val)
 {
 	std::string path;
 
@@ -149,4 +148,9 @@ bool JSONManifestBuilder::Build(int arg_sz, const char* arg_val)
 	}
 
 	return true;
+}
+
+const char* JSONManifestBuilder::buildSystem()
+{
+	return "json";
 }

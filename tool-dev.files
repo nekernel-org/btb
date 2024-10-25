@@ -1,0 +1,16 @@
+BTBKit/IManifestBuilder.h
+BTBKit/Includes.h
+BTBKit/JSONManifestBuilder.h
+BTBKit/Macros.h
+ReadMe.md
+cli/ManifestBuilder.cc
+cli/compile_flags.txt
+posix.json
+src/IManifestBuilder.cc
+src/JSONManifestBuilder.cc
+tests/example.cc
+tests/posix.json
+tests/win64.json
+vendor/json.h
+vendor/json_fwd.h
+win64.json

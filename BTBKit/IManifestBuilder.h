@@ -5,7 +5,10 @@
 
 #pragma once
 
-/// @brief Builder interface class
+#include <Macros.h>
+
+/// @brief Builder interface class.
+/// @note This class is meant to be used as an interface.
 class IManifestBuilder
 {
 public:
@@ -20,5 +23,7 @@ public:
 	/// @param arg_val filename path.
 	/// @retval true succeeded.
 	/// @retval false failed.
-	virtual bool Build(int arg_sz, const char* arg_val) = 0;
+	virtual bool buildTarget(int arg_sz, const char* arg_val) = 0;
+
+	virtual const char* buildSystem() = 0;
 };
