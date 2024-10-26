@@ -25,7 +25,7 @@ int main(int argc, char** argv)
 			index_path == "--version")
 		{
 			std::cout << "Usage: btb <file>\n";
-			std::cout << "Check for issues at: www.el-mahrouss-logic.com/btb/issues\n";
+			std::cout << "Check for issues at: www.zws.zka.com/btb/issues\n";
 
 			std::cout << "Brought to you by Amlal El Mahrouss.\n";
 			std::cout << "© ZKA Web Services Co, all rights reserved.\n";
