@@ -6,7 +6,6 @@
 #include <JSONManifestBuilder.h>
 #include <Includes.h>
 
-static int	kJobCount = 0;
 static bool kFailed	  = false;
 static bool kDryRun = false;
 
@@ -14,8 +13,6 @@ int main(int argc, char** argv)
 {
 	if (argc <= 1)
 		return -1;
-
-	kJobCount = argc - 1;
 
 	for (size_t index = 1; index < argc; ++index)
 	{
@@ -57,8 +54,6 @@ int main(int argc, char** argv)
 			else
 			{
 				kFailed = true;
-
-				--kJobCount;
 				return;
 			}
 
@@ -75,21 +70,9 @@ int main(int argc, char** argv)
 
 			delete builder;
 			builder = nullptr;
-
-			--kJobCount;
 		}, index_path);
 
-		job_build_thread.detach();
-	}
-
-	// wait for completion of all jobs.
-	while (kJobCount > 1)
-	{
-		if (kFailed)
-		{
-			std::cout << "btb: build failed: " << errno << "." << std::endl;
-			return EXIT_FAILURE;
-		}
+		job_build_thread.join();
 	}
 
 	return kFailed ? EXIT_FAILURE : EXIT_SUCCESS;
