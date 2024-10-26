@@ -8,6 +8,7 @@
 
 static int	kJobCount = 0;
 static bool kFailed	  = false;
+static bool kDryRun = false;
 
 int main(int argc, char** argv)
 {
@@ -31,6 +32,11 @@ int main(int argc, char** argv)
 
 			return 0;
 		}
+		else if (index_path == "--dry-run")
+		{
+			kDryRun = true;
+			continue;
+		}
 		else if (index_path == "-h" ||
 				 index_path == "--help")
 		{
@@ -51,12 +57,14 @@ int main(int argc, char** argv)
 			else
 			{
 				kFailed = true;
+
+				--kJobCount;
 				return;
 			}
 
 			std::cout << "btb: building: " << index_path << std::endl;
 
-			if (builder && !builder->buildTarget(index_path.size(), index_path.c_str()))
+			if (builder && !builder->buildTarget(index_path.size(), index_path.c_str(), kDryRun))
 			{
 				kFailed = true;
 			}
@@ -66,6 +74,7 @@ int main(int argc, char** argv)
 			}
 
 			delete builder;
+			builder = nullptr;
 
 			--kJobCount;
 		}, index_path);
@@ -74,7 +83,7 @@ int main(int argc, char** argv)
 	}
 
 	// wait for completion of all jobs.
-	while (kJobCount)
+	while (kJobCount > 1)
 	{
 		if (kFailed)
 		{

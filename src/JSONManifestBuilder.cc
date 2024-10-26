@@ -9,26 +9,29 @@
 #include <iostream>
 #include <fstream>
 
+using String = std::string;
 using JSON = nlohmann::json;
+namespace FS = std::filesystem;
 
 /// @brief Builds a JSON target from a JSON file.
 /// @param arg_sz filename size (must be 1 or greater).
 /// @param arg_val filename path (must be a valid JSON file).
 /// @retval true succeeded building.
 /// @retval false failed to build.
-bool JSONManifestBuilder::buildTarget(int arg_sz, const char* arg_val)
+bool JSONManifestBuilder::buildTarget(int arg_sz, const char* arg_val, const bool dry_run)
 {
-	std::string path;
+	String path;
 
 	if (arg_sz < 0)
 	{
+		std::cout << "btb: error: file path is empty." << std::endl;
 		return false;
 	}
 	else
 	{
 		path = arg_val;
 
-		if (!std::filesystem::exists(path))
+		if (!FS::exists(path))
 		{
 			std::cout << "btb: error: file '" << path << "' does not exist." << std::endl;
 			return false;
@@ -46,62 +49,73 @@ bool JSONManifestBuilder::buildTarget(int arg_sz, const char* arg_val)
 
 		JSON json_obj = JSON::parse(json);
 
-		std::string compiler = json_obj["compiler_path"].get<std::string>();
+		String compiler = json_obj["compiler_path"].get<String>();
 
 		JSON header_search_path = json_obj["headers_path"];
 		JSON sources_files		= json_obj["sources_path"];
 
-		std::string command = compiler + " ";
+		String command = compiler + " ";
 
 		for (auto& sources : sources_files)
 		{
-			command += sources.get<std::string>() + " ";
+			command += sources.get<String>() + " ";
 		}
 
 		for (auto& headers : header_search_path)
 		{
-			command += "-I" + headers.get<std::string>() + " ";
+			command += "-I" + headers.get<String>() + " ";
 		}
 
 		JSON macros_list = json_obj["cpp_macros"];
 
 		for (auto& macro : macros_list)
 		{
-			command += "-D" + macro.get<std::string>() + " ";
+			command += "-D" + macro.get<String>() + " ";
 		}
 
 		JSON compiler_flags = json_obj["compiler_flags"];
 
 		for (auto& flag : compiler_flags)
 		{
-			command += flag.get<std::string>() + " ";
+			command += flag.get<String>() + " ";
 		}
 
 		if (json_obj["compiler_std"].is_string())
-			command += "-std=" + json_obj["compiler_std"].get<std::string>() + " ";
+			command += "-std=" + json_obj["compiler_std"].get<String>() + " ";
 
-		command += "-o " + json_obj["output_name"].get<std::string>();
+		command += "-o " + json_obj["output_name"].get<String>();
 
-		auto target = json_obj["output_name"].get<std::string>();
+		auto target = json_obj["output_name"].get<String>();
 
 		std::cout << "btb: output path: " << target << "\n";
 		std::cout << "btb: command: " << command << "\n";
 
-		std::system(command.c_str());
+		if (dry_run)
+		{
+			return true;
+		}
+
+		auto ret_exec = std::system(command.c_str());
+
+		if (ret_exec > 0)
+		{
+			std::cout << "btb: error: exec exit with code:" << ret_exec << "." << std::endl;
+			return false;
+		}
 
 		try
 		{
 			if (json_obj["run_after_build"].get<bool>())
 			{
-				if (target.ends_with(".so") ||
-					target.ends_with(".dll"))
+				if (target.ends_with(".so"))
 				{
 					std::cout << "btb: error: can't open DLL/SO, it mayn't contain an entrypoint." << std::endl;
 					return true;
 				}
 				else if (target.ends_with(".dll"))
 				{
-					auto			  file = std::ifstream(target);
+					std::ifstream file = std::ifstream(target);
+
 					std::stringstream ss;
 					ss << file.rdbuf();
 

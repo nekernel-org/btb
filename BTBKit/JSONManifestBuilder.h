@@ -24,7 +24,7 @@ public:
 	/// @param arg_val filename path.
 	/// @retval true build succeeded.
 	/// @retval false failed to build.
-	virtual bool buildTarget(int arg_sz, const char* arg_val) override;
+	virtual bool buildTarget(int arg_sz, const char* arg_val, const bool dry_run = false) override;
 
 	virtual const char* buildSystem() override;
 };
