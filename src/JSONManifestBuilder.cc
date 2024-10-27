@@ -99,7 +99,7 @@ bool JSONManifestBuilder::buildTarget(int arg_sz, const char* arg_val, const boo
 
 		if (ret_exec > 0)
 		{
-			std::cout << "btb: error: exec exit with code:" << ret_exec << "." << std::endl;
+			std::cout << "btb: error: exec exit with code: " << ret_exec << "." << std::endl;
 			return false;
 		}
 
