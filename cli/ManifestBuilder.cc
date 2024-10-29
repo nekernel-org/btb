@@ -1,6 +1,6 @@
 // ============================================================= //
 // btb
-// Copyright ZKA Web Services.
+// Copyright EL Mahrouss Logic.
 // ============================================================= //
 
 #include <JSONManifestBuilder.h>
@@ -25,7 +25,7 @@ int main(int argc, char** argv)
 			std::cout << "Check for issues at: www.zws.zka.com/btb/issues\n";
 
 			std::cout << "Brought to you by Amlal El Mahrouss.\n";
-			std::cout << "© ZKA Web Services Co, all rights reserved.\n";
+			std::cout << "© EL Mahrouss Logic, all rights reserved.\n";
 
 			return 0;
 		}

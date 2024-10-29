@@ -1,6 +1,6 @@
 // ============================================================= //
 //  btb
-// Copyright ZKA Web Services.
+// Copyright EL Mahrouss Logic.
 // ============================================================= //
 
 #include <JSONManifestBuilder.h>
