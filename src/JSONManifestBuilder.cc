@@ -1,6 +1,6 @@
 // ============================================================= //
 // btb
-// Copyright EL Mahrouss Logic.
+// Copyright Amlal EL Mahrouss.
 // ============================================================= //
 
 #include <JSONManifestBuilder.h>

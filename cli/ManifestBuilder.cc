@@ -1,6 +1,6 @@
 // ============================================================= //
 // btb
-// Copyright EL Mahrouss Logic.
+// Copyright Amlal EL Mahrouss.
 // ============================================================= //
 
 #include <JSONManifestBuilder.h>
@@ -25,7 +25,7 @@ int main(int argc, char** argv)
 			std::cout << "Check for issues at: www.el-mahrouss-logic.com/btb/issues\n";
 
 			std::cout << "Brought to you by Amlal El Mahrouss.\n";
-			std::cout << "© EL Mahrouss Logic, all rights reserved.\n";
+			std::cout << "© Amlal EL Mahrouss, all rights reserved.\n";
 
 			return 0;
 		}
