@@ -1,6 +1,6 @@
 # BTB.
 
-A tool by Amlal EL Mahrouss to build libraries and programs.
+A tool by EL Mahrouss Logic to build libraries and programs.
 
 ## Installation requirements:
 
@@ -14,4 +14,4 @@ A tool by Amlal EL Mahrouss to build libraries and programs.
 
 - Run `btb` and pass the path to the manifest file.
 
-###### Copyright (C) 2024, Amlal EL Mahrouss, all rights reserved. All rights reserved.
+###### Copyright (C) 2024, EL Mahrouss Logic, all rights reserved. All rights reserved.
