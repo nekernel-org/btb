@@ -6,6 +6,7 @@
 #pragma once
 
 #include <Macros.h>
+#include <Includes.h>
 
 /// @brief Builder interface class.
 /// @note This class is meant to be used as an interface.

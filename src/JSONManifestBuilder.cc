@@ -5,10 +5,6 @@
 
 #include <JSONManifestBuilder.h>
 
-#include <sstream>
-#include <iostream>
-#include <fstream>
-
 using String = std::string;
 using JSON = nlohmann::json;
 namespace FS = std::filesystem;
