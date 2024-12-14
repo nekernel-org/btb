@@ -1,6 +1,6 @@
 // ============================================================= //
 // btb
-// Copyright (C) 2024, ELMH Group, all rights reserved.
+// Copyright (C) 2024, Theater Quality Inc, all rights reserved.
 // ============================================================= //
 
 #include <JSONManifestBuilder.h>
@@ -22,10 +22,10 @@ int main(int argc, char** argv)
 			index_path == "--version")
 		{
 			std::cout << "Usage: btb <file>\n";
-			std::cout << "Check for issues at: www.el-mahrouss-logic.com/btb/issues\n";
+			std::cout << "Check for issues at: el-mahrouss-logic.com/developer/issues\n";
 
-			std::cout << "Brought to you by ELMH Group.\n";
-			std::cout << "© ELMH Group, all rights reserved.\n";
+			std::cout << "Brought to you by Theater Quality Inc.\n";
+			std::cout << "© Theater Quality Inc, all rights reserved.\n";
 
 			return 0;
 		}

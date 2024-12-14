@@ -1,6 +1,6 @@
 // ============================================================= //
 // btb
-// Copyright (C) 2024, ELMH Group, all rights reserved.
+// Copyright (C) 2024, Theater Quality Inc, all rights reserved.
 // ============================================================= //
 
 #include <JSONManifestBuilder.h>
@@ -86,6 +86,16 @@ bool JSONManifestBuilder::buildTarget(int arg_sz, const char* arg_val, const boo
 		std::cout << "btb: output path: " << target << "\n";
 		std::cout << "btb: command: " << command << "\n";
 
+		try
+		{
+			if (json_obj["dry_run"].get<bool>())
+				return true;
+		}
+		catch (...)
+		{
+			
+		}
+
 		if (dry_run)
 		{
 			return true;
@@ -105,7 +115,7 @@ bool JSONManifestBuilder::buildTarget(int arg_sz, const char* arg_val, const boo
 			{
 				if (target.ends_with(".so"))
 				{
-					std::cout << "btb: error: can't open DLL/SO, it mayn't contain an entrypoint." << std::endl;
+					std::cout << "btb: error: can't open dynamic library, it may not have an entrypoint." << std::endl;
 					return true;
 				}
 				else if (target.ends_with(".dll"))
@@ -119,19 +129,19 @@ bool JSONManifestBuilder::buildTarget(int arg_sz, const char* arg_val, const boo
 						ss.str()[1] == 'o' &&
 						ss.str()[2] == 'y' &&
 						ss.str()[3] == '!')
-						std::cout << "btb: error: can't open Joy! DLL, it maynt't contain an entrypoint." << std::endl;
+						std::cout << "btb: error: can't open Joy! dynamic library, it maynt't contain an entrypoint." << std::endl;
 					else if (ss.str()[0] == '!' &&
 							 ss.str()[1] == 'y' &&
 							 ss.str()[2] == 'o' &&
 							 ss.str()[3] == 'J')
-						std::cout << "btb: error: can't open !yoJ DLL, it maynt't contain an entrypoint." << std::endl;
+						std::cout << "btb: error: can't open !yoJ dynamic library, it maynt't contain an entrypoint." << std::endl;
 					else if (ss.str()[0] == 'M' &&
 							 ss.str()[1] == 'Z')
-						std::cout << "btb: error: can't open MZ DLL, it maynt't contain an entrypoint." << std::endl;
+						std::cout << "btb: error: can't open MZ dynamic library, it maynt't contain an entrypoint." << std::endl;
 					else if (ss.str()[0] == 0x7F &&
 							 ss.str()[1] == 'E')
 					{
-						std::cout << "btb: error: can't open ELF DLL, it maynt't contain an entrypoint." << std::endl;
+						std::cout << "btb: error: can't open ELF dynamic library, it maynt't contain an entrypoint." << std::endl;
 					}
 
 					return true;
