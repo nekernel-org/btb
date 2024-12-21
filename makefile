@@ -1,7 +1,7 @@
 
 .PHONY: build-btb
 build-btb:
-	sudo g++ -I./BTBKit -I./vendor $(wildcard cli/*.cc) $(wildcard src/*.cc) -std=c++20 -L/usr/local -lbtb -o btb
+	sudo g++ -I./BTBKit -I./vendor $(wildcard cli/*.cc) $(wildcard src/*.cc) -std=c++20 -o btb
 	sudo cp btb /usr/local/bin
 
 .PHONY: build-btb-windows
