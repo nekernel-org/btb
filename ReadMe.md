@@ -13,4 +13,4 @@
 
 - Run `btb` and pass the path to the manifest file.
 
-###### Copyright (C) 2024, Theater Quality Inc, all rights reserved. All rights reserved.
+###### Copyright (C) 2024, Amlal El Mahrouss, all rights reserved. All rights reserved.
