@@ -195,7 +195,7 @@ local.properties
 *.la
 *.lo
 
-# Shared objects (BTBKit. Windows DLLs)
+# Shared objects (SOs. Windows DLLs)
 *.dll
 *.so
 *.so.*

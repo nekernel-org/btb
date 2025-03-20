@@ -1,6 +1,6 @@
 // ============================================================= //
 // btb
-// Copyright (C) 2024, Theater Quality Inc, all rights reserved.
+// Copyright (C) 2024-2025, Amlal El Mahrouss, all rights reserved.
 // ============================================================= //
 
 #include <IManifestBuilder.h>

@@ -1,6 +1,7 @@
+
 // ============================================================= //
 // btb
-// Copyright (C) 2024, Theater Quality Inc, all rights reserved.
+// Copyright (C) 2024-2025, Amlal El Mahrouss, all rights reserved.
 // ============================================================= //
 
 #include <JSONManifestBuilder.h>
@@ -22,12 +23,12 @@ int main(int argc, char** argv)
 			index_path == "--version")
 		{
 			std::cout << "Usage: btb <file>\n";
-			std::cout << "Check for issues at: el-mahrouss-logic.com/developer/issues\n";
+			std::cout << "Check for issues at: theater-quality.com/developer/issues\n";
 
-			std::cout << "Brought to you by Theater Quality Inc.\n";
-			std::cout << "© Theater Quality Inc, all rights reserved.\n";
+			std::cout << "Brought to you by Amlal El Mahrouss.\n";
+			std::cout << "© 2024-2025 Amlal El Mahrouss, all rights reserved.\n";
 
-			return 0;
+			return EXIT_SUCCESS;
 		}
 		else if (index_path == "--dry-run")
 		{
@@ -38,8 +39,7 @@ int main(int argc, char** argv)
 				 index_path == "--help")
 		{
 			std::cout << "btb: Build a JSON file: btb <json_path>.json\n";
-
-			return 0;
+			return EXIT_SUCCESS;
 		}
 
 		std::thread job_build_thread([](std::string index_path) -> void {
