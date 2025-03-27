@@ -23,7 +23,7 @@ int main(int argc, char** argv)
 			index_path == "--version")
 		{
 			std::cout << "Usage: btb <file>\n";
-			std::cout << "Bugs, Issues?, check out: https://github.com/ne-gh/btb/issues\n";
+			std::cout << "Bugs, Issues?, check out: https://github.com/amlel-el-mahrouss/btb/issues\n";
 
 			std::cout << "Brought to you by Amlal El Mahrouss for the NeKernel project.\n";
 			std::cout << "© 2024-2025 Amlal El Mahrouss, all rights reserved.\n";
@@ -53,6 +53,7 @@ int main(int argc, char** argv)
 			}
 			else
 			{
+				std::cout << "btb: error: file '" << index_path << "' does not end with .json!" << std::endl;
 				kFailed = true;
 				return;
 			}
