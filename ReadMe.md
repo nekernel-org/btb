@@ -9,7 +9,7 @@
 
 - Run make `build-btb-core` and `build-btb`.
 
-## Steps (BTB && OpenBTB):
+## Steps (BTB):
 
 - Run `btb` and pass the path to the manifest file.
 
