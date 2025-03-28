@@ -22,11 +22,10 @@ int main(int argc, char** argv)
 		if (index_path == "-v" ||
 			index_path == "--version")
 		{
-			std::cout << "Usage: btb <file>\n";
-			std::cout << "Bugs, Issues?, check out: https://github.com/amlel-el-mahrouss/btb/issues\n";
+			logger::info() << "Brought to you by Amlal El Mahrouss for the NeKernel project.\n";
+			logger::info() << "© 2024-2025 Amlal El Mahrouss, all rights reserved.\n";
 
-			std::cout << "Brought to you by Amlal El Mahrouss for the NeKernel project.\n";
-			std::cout << "© 2024-2025 Amlal El Mahrouss, all rights reserved.\n";
+			logger::info() << "Bugs, Issues?, check out: https://github.com/amlel-el-mahrouss/btb/issues\n";
 
 			return EXIT_SUCCESS;
 		}
@@ -38,7 +37,8 @@ int main(int argc, char** argv)
 		else if (index_path == "-h" ||
 				 index_path == "--help")
 		{
-			std::cout << "btb: Build a JSON file: btb <json_path>.json\n";
+			logger::info() << "Usage: btb <file>\n";
+
 			return EXIT_SUCCESS;
 		}
 
@@ -50,21 +50,23 @@ int main(int argc, char** argv)
 			if (index_path.ends_with(kJsonExtension))
 			{
 				builder = new JSONManifestBuilder();
+
+				if (!builder)
+				{
+					kFailed = true;
+					return;
+				}
 			}
 			else
 			{
-				std::cout << "btb: error: file '" << index_path << "' does not end with .json!" << std::endl;
+				logger::info() << "error: file '" << index_path << "' does not end with .json!" << std::endl;
 				kFailed = true;
 				return;
 			}
 
-			std::cout << "btb: building: " << index_path << std::endl;
+			logger::info() << "building: " << index_path << std::endl;
 
 			if (builder && !builder->buildTarget(index_path.size(), index_path.c_str(), kDryRun))
-			{
-				kFailed = true;
-			}
-			else if (!builder)
 			{
 				kFailed = true;
 			}

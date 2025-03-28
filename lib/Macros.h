@@ -5,17 +5,32 @@
 
 #pragma once
 
-#include <cassert>
+extern "C"
+{
+#include <assert.h>
+}
+
+#include <rang.h>
 
 #define LIKELY(ARG) (ARG) ? assert(false) : ((void)0)
 #define UNLIKELY(ARG) LIKELY(!(ARG))
 
-#define BTBKIT_VERSION "1.2.0"
+#define LIBBTB_VERSION "1.2.0"
 
-#define BTBKIT_VERSION_BCD 0x0120
+#define LIBBTB_VERSION_BCD 0x0120
 
-#define BTBKIT_VERSION_MAJOR 1
-#define BTBKIT_VERSION_MINOR 0
-#define BTBKIT_VERSION_PATCH 0
+#define LIBBTB_VERSION_MAJOR 1
+#define LIBBTB_VERSION_MINOR 0
+#define LIBBTB_VERSION_PATCH 0
 
-#define BTB_UNUSED(X) ((void)X)
+#define LIBBTB_UNUSED(X) ((void)X)
+
+namespace logger
+{
+	inline std::ostream& info() noexcept
+	{
+		auto& out = std::cout;
+		out << rang::style::bold << rang::fg::red << "btb: " << rang::style::reset;
+		return out;
+	}
+}

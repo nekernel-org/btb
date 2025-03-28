@@ -4,6 +4,7 @@
 // ============================================================= //
 
 #include <JSONManifestBuilder.h>
+#include <initializer_list>
 
 using String = std::string;
 using JSON = nlohmann::json;
@@ -20,7 +21,7 @@ bool JSONManifestBuilder::buildTarget(int arg_sz, const char* arg_val, const boo
 
 	if (arg_sz < 0)
 	{
-		std::cout << "btb: error: file path is empty" << std::endl;
+		logger::info() << "btb: error: file path is empty" << std::endl;
 		return false;
 	}
 	else
@@ -29,7 +30,7 @@ bool JSONManifestBuilder::buildTarget(int arg_sz, const char* arg_val, const boo
 
 		if (!FS::exists(path))
 		{
-			std::cout << "btb: error: file '" << path << "' does not exist" << std::endl;
+			logger::info() << "btb: error: file '" << path << "' does not exist" << std::endl;
 			return false;
 		}
 	}
@@ -40,7 +41,7 @@ bool JSONManifestBuilder::buildTarget(int arg_sz, const char* arg_val, const boo
 
 		if (!json.good())
 		{
-			std::cout << "btb: error: file '" << path << "' is not a valid JSON" << std::endl;
+			logger::info() << "btb: error: file '" << path << "' is not a valid JSON" << std::endl;
 			return false;
 		}
 
@@ -84,8 +85,8 @@ bool JSONManifestBuilder::buildTarget(int arg_sz, const char* arg_val, const boo
 
 		auto target = json_obj["output_name"].get<String>();
 
-		std::cout << "btb: output path: " << target << "\n";
-		std::cout << "btb: command: " << command << "\n";
+		logger::info() << "output path: " << target << "\n";
+		logger::info() << "command: " << command << "\n";
 
 		try
 		{
@@ -106,7 +107,7 @@ bool JSONManifestBuilder::buildTarget(int arg_sz, const char* arg_val, const boo
 
 		if (ret_exec > 0)
 		{
-			std::cout << "btb: error: exec exit with code: " << ret_exec << "" << std::endl;
+			logger::info() << "error: exec exit with code: " << ret_exec << "" << std::endl;
 			return false;
 		}
 
@@ -116,7 +117,7 @@ bool JSONManifestBuilder::buildTarget(int arg_sz, const char* arg_val, const boo
 			{
 				if (target.ends_with(".so"))
 				{
-					std::cout << "btb: error: can't open dynamic library, it may not have an entrypoint" << std::endl;
+					logger::info() << "error: can't open dynamic library, it may not have an entrypoint" << std::endl;
 					return true;
 				}
 				else if (target.ends_with(".dll"))
@@ -130,19 +131,19 @@ bool JSONManifestBuilder::buildTarget(int arg_sz, const char* arg_val, const boo
 						ss.str()[1] == 'o' &&
 						ss.str()[2] == 'y' &&
 						ss.str()[3] == '!')
-						std::cout << "btb: error: can't open Joy! dynamic library, it maynt't contain an entrypoint" << std::endl;
+						logger::info() << "error: can't open Joy! dynamic library, it maynt't contain an entrypoint" << std::endl;
 					else if (ss.str()[0] == '!' &&
 							 ss.str()[1] == 'y' &&
 							 ss.str()[2] == 'o' &&
 							 ss.str()[3] == 'J')
-						std::cout << "btb: error: can't open !yoJ dynamic library, it maynt't contain an entrypoint" << std::endl;
+						logger::info() << "error: can't open !yoJ dynamic library, it maynt't contain an entrypoint" << std::endl;
 					else if (ss.str()[0] == 'M' &&
 							 ss.str()[1] == 'Z')
-						std::cout << "btb: error: can't open MZ dynamic library, it maynt't contain an entrypoint" << std::endl;
+						logger::info() << "error: can't open MZ dynamic library, it maynt't contain an entrypoint" << std::endl;
 					else if (ss.str()[0] == 0x7F &&
 							 ss.str()[1] == 'E')
 					{
-						std::cout << "btb: error: can't open ELF dynamic library, it maynt't contain an entrypoint" << std::endl;
+						logger::info() << "error: can't open ELF dynamic library, it maynt't contain an entrypoint" << std::endl;
 					}
 
 					return true;
@@ -162,7 +163,7 @@ bool JSONManifestBuilder::buildTarget(int arg_sz, const char* arg_val, const boo
 	}
 	catch (std::runtime_error& err)
 	{
-		std::cout << "btb: error: " << err.what() << std::endl;
+		logger::info() << "error: " << err.what() << std::endl;
 		perror("btb");
 
 		return false;
