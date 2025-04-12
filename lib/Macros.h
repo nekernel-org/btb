@@ -30,7 +30,7 @@ namespace logger
 	inline std::ostream& info() noexcept
 	{
 		auto& out = std::cout;
-		out << rang::style::bold << rang::fg::red << "btb: " << rang::style::reset;
+		out << rang::fg::red << "btb: " << rang::style::reset;
 		return out;
 	}
 }
