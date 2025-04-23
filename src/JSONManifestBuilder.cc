@@ -7,21 +7,23 @@
 #include <initializer_list>
 
 using String = std::string;
-using JSON = nlohmann::json;
+using JSON	 = nlohmann::json;
 namespace FS = std::filesystem;
+
+using namespace BTB;
 
 /// @brief Builds a JSON target from a JSON file.
 /// @param arg_sz filename size (must be 1 or greater).
 /// @param arg_val filename path (must be a valid JSON file).
 /// @retval true succeeded building.
-/// @retval false failed to build.
+/// @retval false fail to build, see error message.
 bool JSONManifestBuilder::buildTarget(int arg_sz, const char* arg_val, const bool dry_run)
 {
 	String path;
 
 	if (arg_sz < 0)
 	{
-		logger::info() << "btb: error: file path is empty" << std::endl;
+		BTB::Logger::info() << "btb: error: file path is empty" << std::endl;
 		return false;
 	}
 	else
@@ -30,7 +32,7 @@ bool JSONManifestBuilder::buildTarget(int arg_sz, const char* arg_val, const boo
 
 		if (!FS::exists(path))
 		{
-			logger::info() << "btb: error: file '" << path << "' does not exist" << std::endl;
+			BTB::Logger::info() << "btb: error: file '" << path << "' does not exist" << std::endl;
 			return false;
 		}
 	}
@@ -41,7 +43,7 @@ bool JSONManifestBuilder::buildTarget(int arg_sz, const char* arg_val, const boo
 
 		if (!json.good())
 		{
-			logger::info() << "btb: error: file '" << path << "' is not a valid JSON" << std::endl;
+			BTB::Logger::info() << "btb: error: file '" << path << "' is not a valid JSON" << std::endl;
 			return false;
 		}
 
@@ -85,8 +87,8 @@ bool JSONManifestBuilder::buildTarget(int arg_sz, const char* arg_val, const boo
 
 		auto target = json_obj["output_name"].get<String>();
 
-		logger::info() << "output path: " << target << "\n";
-		logger::info() << "command: " << command << "\n";
+		BTB::Logger::info() << "output path: " << target << "\n";
+		BTB::Logger::info() << "command: " << command << "\n";
 
 		try
 		{
@@ -95,7 +97,6 @@ bool JSONManifestBuilder::buildTarget(int arg_sz, const char* arg_val, const boo
 		}
 		catch (...)
 		{
-			
 		}
 
 		if (dry_run)
@@ -107,7 +108,7 @@ bool JSONManifestBuilder::buildTarget(int arg_sz, const char* arg_val, const boo
 
 		if (ret_exec > 0)
 		{
-			logger::info() << "error: exec exit with code: " << ret_exec << "" << std::endl;
+			BTB::Logger::info() << "error: exec exit with code: " << ret_exec << "" << std::endl;
 			return false;
 		}
 
@@ -117,39 +118,41 @@ bool JSONManifestBuilder::buildTarget(int arg_sz, const char* arg_val, const boo
 			{
 				if (target.ends_with(".so"))
 				{
-					logger::info() << "error: can't open dynamic library, it may not have an entrypoint" << std::endl;
+					BTB::Logger::info() << "error: can't open dynamic library, it mayn't have an entrypoint" << std::endl;
+
 					return true;
 				}
-				else if (target.ends_with(".dll"))
+				else if (target.ends_with(".dylib") ||
+						 target.ends_with(".dll"))
 				{
-					std::ifstream file = std::ifstream(target);
-
+					std::ifstream	  file = std::ifstream(target);
 					std::stringstream ss;
+
 					ss << file.rdbuf();
 
 					if (ss.str()[0] == 'J' &&
 						ss.str()[1] == 'o' &&
 						ss.str()[2] == 'y' &&
 						ss.str()[3] == '!')
-						logger::info() << "error: can't open Joy! dynamic library, it maynt't contain an entrypoint" << std::endl;
+						BTB::Logger::info() << "error: can't open PEF dynamic library, it mayn't contain an entrypoint" << std::endl;
 					else if (ss.str()[0] == '!' &&
 							 ss.str()[1] == 'y' &&
 							 ss.str()[2] == 'o' &&
 							 ss.str()[3] == 'J')
-						logger::info() << "error: can't open !yoJ dynamic library, it maynt't contain an entrypoint" << std::endl;
+						BTB::Logger::info() << "error: can't open FEP dynamic library, it mayn't contain an entrypoint" << std::endl;
 					else if (ss.str()[0] == 'M' &&
 							 ss.str()[1] == 'Z')
-						logger::info() << "error: can't open MZ dynamic library, it maynt't contain an entrypoint" << std::endl;
+						BTB::Logger::info() << "error: can't open MZ dynamic library, it mayn't contain an entrypoint" << std::endl;
 					else if (ss.str()[0] == 0x7F &&
 							 ss.str()[1] == 'E')
 					{
-						logger::info() << "error: can't open ELF dynamic library, it maynt't contain an entrypoint" << std::endl;
+						BTB::Logger::info() << "error: can't open ELF dynamic library, it mayn't contain an entrypoint" << std::endl;
 					}
 
 					return true;
 				}
 
-#ifdef _WIN32
+#if defined(BTB_WINDOWS)
 				std::system((".\\" + target).c_str());
 #else
 				std::system(("./" + target).c_str());
@@ -163,8 +166,7 @@ bool JSONManifestBuilder::buildTarget(int arg_sz, const char* arg_val, const boo
 	}
 	catch (std::runtime_error& err)
 	{
-		logger::info() << "error: " << err.what() << std::endl;
-		perror("btb");
+		BTB::Logger::info() << "error: " << err.what() << std::endl;
 
 		return false;
 	}

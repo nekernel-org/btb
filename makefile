@@ -1,14 +1,23 @@
+SUDO=sudo
+GCC=g++
+GCC_MINGW=x86_64-w64-mingw32-g++
+CXXFLAGS=-I./lib -I./vendor
+CXXSTD= -std=c++20
+SRC=$(wildcard cli/*.cc) $(wildcard src/*.cc)
+OUT=btb
+CP=cp
 
 .PHONY: build-btb
 build-btb:
-	sudo g++ -I./lib -I./vendor $(wildcard cli/*.cc) $(wildcard src/*.cc) -std=c++20 -o btb
-	sudo cp btb /usr/local/bin
+	$(SUDO) $(GCC) $(CXXFLAGS) $(SRC) $(CXXSTD) -o $(OUT)
+	$(SUDO) $(CP) $(OUT) /usr/local/bin
 
 .PHONY: build-btb-windows
 build-btb-windows:
-	x86_64-w64-mingw32-g++.exe -I./lib -I./vendor $(wildcard cli/*.cc) $(wildcard src/*.cc) -std=c++20 -o btb.exe
+	$(GCC_MINGW) $(CXXFLAGS) $(SRC) -o $(OUT).exe
 
 .PHONY: help
 help:
-	@echo "=> build-btb-windows"
-	@echo "=> build-btb"
+	@echo "=> help: Show this help message."
+	@echo "=> build-btb-windows: Build BTB for Windows."
+	@echo "=> build-btb: Build BTB for POSIX."
