@@ -12,25 +12,26 @@ extern "C"
 
 #include <rang.h>
 
-#define LIKELY(ARG) (ARG) ? assert(false) : ((void)0)
+#define LIKELY(ARG)	  (ARG) ? assert(false) : ((void)0)
 #define UNLIKELY(ARG) LIKELY(!(ARG))
 
-#define LIBBTB_VERSION "1.2.0"
+#define LIBBTB_VERSION "1.1.0"
 
-#define LIBBTB_VERSION_BCD 0x0120
+#define LIBBTB_VERSION_BCD 0x0110
 
 #define LIBBTB_VERSION_MAJOR 1
-#define LIBBTB_VERSION_MINOR 0
+#define LIBBTB_VERSION_MINOR 1
 #define LIBBTB_VERSION_PATCH 0
 
 #define LIBBTB_UNUSED(X) ((void)X)
 
-namespace logger
+namespace BTB::Logger
 {
+	/// @brief replacement for std::cout for BTB logging.
 	inline std::ostream& info() noexcept
 	{
 		auto& out = std::cout;
 		out << rang::fg::red << "btb: " << rang::style::reset;
 		return out;
 	}
-}
+} // namespace BTB::Logger

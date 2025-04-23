@@ -5,5 +5,6 @@
   "sources_path": ["src/*.cc", "cli/*.cc"],
   "output_name": "btb",
   "compiler_flags": ["-fPIC"],
+  "cpp_macros": ["BTB_POSIX"],
   "run_after_build": false
 }
