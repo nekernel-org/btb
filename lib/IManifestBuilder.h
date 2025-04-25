@@ -5,29 +5,27 @@
 
 #pragma once
 
-#include <Macros.h>
 #include <Includes.h>
+#include <Macros.h>
 
-namespace BTB
-{
-	/// @brief Builder interface class.
-	/// @note This class is meant to be used as an interface.
-	class IManifestBuilder
-	{
-	public:
-		explicit IManifestBuilder() = default;
-		virtual ~IManifestBuilder() = default;
+namespace BTB {
+/// @brief Builder interface class.
+/// @note This class is meant to be used as an interface.
+class IManifestBuilder {
+ public:
+  explicit IManifestBuilder() = default;
+  virtual ~IManifestBuilder() = default;
 
-		IManifestBuilder& operator=(const IManifestBuilder&) = default;
-		IManifestBuilder(const IManifestBuilder&)			 = default;
+  IManifestBuilder& operator=(const IManifestBuilder&) = default;
+  IManifestBuilder(const IManifestBuilder&)            = default;
 
-		/// @brief Builds a target using the implemented laguage.
-		/// @param arg_sz filename size
-		/// @param arg_val filename path.
-		/// @retval true succeeded.
-		/// @retval false failed.
-		virtual bool buildTarget(int arg_sz, const char* arg_val, const bool dry_run = false) = 0;
+  /// @brief Builds a target using the implemented laguage.
+  /// @param arg_sz filename size
+  /// @param arg_val filename path.
+  /// @retval true succeeded.
+  /// @retval false failed.
+  virtual bool buildTarget(int arg_sz, const char* arg_val, const bool dry_run = false) = 0;
 
-		virtual const char* buildSystem() = 0;
-	};
-} // namespace BTB
+  virtual const char* buildSystem() = 0;
+};
+}  // namespace BTB
