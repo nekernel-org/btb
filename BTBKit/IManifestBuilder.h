@@ -5,8 +5,10 @@
 
 #pragma once
 
-#include <Includes.h>
-#include <Macros.h>
+#include <BTBKit/Includes.h>
+#include <BTBKit/Macros.h>
+
+#define BTB_MANIFEST_BUILDER : public BTB::IManifestBuilder
 
 namespace BTB {
 /// @brief Builder interface class.

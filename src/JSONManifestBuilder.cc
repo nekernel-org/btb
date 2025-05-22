@@ -3,8 +3,7 @@
 // Copyright (C) 2024-2025, Amlal El Mahrouss, all rights reserved.
 // ============================================================= //
 
-#include <JSONManifestBuilder.h>
-#include <initializer_list>
+#include <BTBKit/JSONManifestBuilder.h>
 
 using String = std::string;
 using JSON   = nlohmann::json;
@@ -91,7 +90,7 @@ bool JSONManifestBuilder::buildTarget(int arg_sz, const char* arg_val, const boo
     auto ret_exec = std::system(command.c_str());
 
     if (ret_exec > 0) {
-      BTB::Logger::info() << "error: exec exit with code: " << ret_exec << "" << std::endl;
+      BTB::Logger::info() << "error: exit with message: " << std::strerror(ret_exec) << "" << std::endl;
       return false;
     }
 

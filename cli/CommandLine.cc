@@ -4,8 +4,8 @@
 // Copyright (C) 2024-2025, Amlal El Mahrouss, all rights reserved.
 // ============================================================= //
 
-#include <Includes.h>
-#include <JSONManifestBuilder.h>
+#include <BTBKit/Includes.h>
+#include <BTBKit/JSONManifestBuilder.h>
 
 static bool kFailed = false;
 static bool kDryRun = false;

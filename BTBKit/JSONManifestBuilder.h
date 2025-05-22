@@ -5,12 +5,12 @@
 
 #pragma once
 
-#include <IManifestBuilder.h>
+#include <BTBKit/IManifestBuilder.h>
 #include <json.h>
 
 namespace BTB {
 /// @brief JSON builder
-class JSONManifestBuilder final : public IManifestBuilder {
+class JSONManifestBuilder final BTB_MANIFEST_BUILDER {
  public:
   explicit JSONManifestBuilder()          = default;
   virtual ~JSONManifestBuilder() override = default;
