@@ -11,7 +11,7 @@ extern "C" {
 
 #include <rang.h>
 
-#define LIKELY(ARG) (ARG) ? assert(false) : ((void) 0)
+#define LIKELY(ARG) ((ARG) ? assert(false) : ((void) 0))
 #define UNLIKELY(ARG) LIKELY(!(ARG))
 
 #define LIBBTB_VERSION "1.1.0"
