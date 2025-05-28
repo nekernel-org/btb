@@ -14,9 +14,9 @@ extern "C" {
 #define LIKELY(ARG) ((ARG) ? assert(false) : ((void) 0))
 #define UNLIKELY(ARG) LIKELY(!(ARG))
 
-#define LIBBTB_VERSION "1.1.0"
+#define LIBBTB_VERSION "v0.0.1-libBTB"
 
-#define LIBBTB_VERSION_BCD 0x0110
+#define LIBBTB_VERSION_BCD 0x0001
 
 #define LIBBTB_VERSION_MAJOR 1
 #define LIBBTB_VERSION_MINOR 1

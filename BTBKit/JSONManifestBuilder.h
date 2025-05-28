@@ -12,8 +12,8 @@ namespace BTB {
 /// @brief JSON builder
 class JSONManifestBuilder final BTB_MANIFEST_BUILDER {
  public:
-  explicit JSONManifestBuilder()          = default;
-  virtual ~JSONManifestBuilder() override = default;
+  JSONManifestBuilder()          = default;
+  ~JSONManifestBuilder() override = default;
 
   JSONManifestBuilder& operator=(const JSONManifestBuilder&) = default;
   JSONManifestBuilder(const JSONManifestBuilder&)            = default;
@@ -24,8 +24,7 @@ class JSONManifestBuilder final BTB_MANIFEST_BUILDER {
   /// @param arg_val filename path.
   /// @retval true build succeeded.
   /// @retval false failed to build.
-  virtual bool buildTarget(int arg_sz, const char* arg_val, const bool dry_run = false) override;
-
-  virtual const char* buildSystem() override;
+  bool buildTarget(int arg_sz, const char* arg_val, const bool dry_run = false) override;
+  const char* buildSystem() override;
 };
 }  // namespace BTB

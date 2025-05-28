@@ -15,7 +15,7 @@ namespace BTB {
 /// @note This class is meant to be used as an interface.
 class IManifestBuilder {
  public:
-  explicit IManifestBuilder() = default;
+  IManifestBuilder() = default;
   virtual ~IManifestBuilder() = default;
 
   IManifestBuilder& operator=(const IManifestBuilder&) = default;
@@ -27,7 +27,6 @@ class IManifestBuilder {
   /// @retval true succeeded.
   /// @retval false failed.
   virtual bool buildTarget(int arg_sz, const char* arg_val, const bool dry_run = false) = 0;
-
   virtual const char* buildSystem() = 0;
 };
 }  // namespace BTB
