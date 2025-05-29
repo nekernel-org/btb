@@ -1,10 +1,10 @@
 {
-  "compiler_path": "x86_64-w64-mingw32-g++.exe",
+  "compiler_path": "g++",
   "compiler_std": "c++20",
   "headers_path": ["./", "vendor"],
   "sources_path": ["src/*.cc", "cli/*.cc"],
-  "output_name": "btb.exe",
+  "output_name": "btb",
   "compiler_flags": ["-fPIC"],
-  "cpp_macros": ["BTB_WINDOWS"],
+  "cpp_macros": ["BTB_POSIX", "BTB_OSX"],
   "run_after_build": false
 }

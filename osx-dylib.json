@@ -1,0 +1,10 @@
+{
+  "compiler_path": "g++",
+  "compiler_std": "c++20",
+  "headers_path": ["./", "vendor"],
+  "sources_path": ["src/*.cc"],
+  "output_name": "libBTB.dylib",
+  "compiler_flags": ["-fPIC", "-shared"],
+  "cpp_macros": ["BTB_POSIX", "BTB_OSX"],
+  "run_after_build": false
+}

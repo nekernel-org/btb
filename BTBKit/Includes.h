@@ -6,12 +6,12 @@
 #ifndef BTB_INCLUDES_H
 #define BTB_INCLUDES_H
 
-#include <cstdio>
 #include <cstddef>
-#include <string>
-#include <iostream>
-#include <thread>
-#include <sstream>
+#include <cstdio>
 #include <fstream>
+#include <iostream>
+#include <sstream>
+#include <string>
+#include <thread>
 
-#endif // BTB_INCLUDES_H
+#endif  // BTB_INCLUDES_H

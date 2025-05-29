@@ -1,7 +1,7 @@
 SUDO=sudo
 GCC=g++
 GCC_MINGW=x86_64-w64-mingw32-g++
-CXXFLAGS=-I./lib -I./vendor
+CXXFLAGS=-I./ -I./vendor
 CXXSTD= -std=c++20
 SRC=$(wildcard cli/*.cc) $(wildcard src/*.cc)
 OUT=btb
